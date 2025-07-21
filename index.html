@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vidyuth - EEE Association | Engineering the Future</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@600;700;800&family=Inter:wght@400;600&display=swap" rel="stylesheet"> 
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-dark: #0f172a; /* Deeper Slate */
+            --bg-card: #1e293b; /* Slate 800 */
+            --text-light: #e2e8f0; /* Slate 200 */
+            --text-medium: #94a3b8; /* Slate 400 */
+            --accent-cyan: #22d3ee;
+            --accent-magenta: #d946ef;
+            --glow-cyan: rgba(34, 211, 238, 0.5);
+            --glow-magenta: rgba(217, 70, 239, 0.5);
+        }
+
+        /* Custom styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+             font-family: 'Exo 2', sans-serif; 
+        }
+
+        /* Neon Gradient Title */
+        .title-gradient-neon {
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta), var(--accent-cyan));
+            background-size: 200% auto; 
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGradientShift 5s linear infinite;
+        }
+
+        @keyframes textGradientShift {
+            0% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+            100% { background-position: 0% center; }
+        }
+
+
+        /* Section Heading */
+        .section-heading {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .section-heading i { /* Use accent color for icons */
+            color: var(--accent-cyan);
+        }
+
+
+        /* Card Styling & Hover Effects */
+        .info-card, .team-card {
+            background-color: var(--bg-card);
+            border: 1px solid #334155; /* Subtle border */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.75rem; /* Slightly larger radius */
+        }
+        .info-card:hover, .team-card:hover {
+            transform: translateY(-8px) scale(1.02); /* Lift and slightly enlarge */
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 25px var(--glow-cyan);
+        }
+
+         /* Optional: Animated Gradient Border on Hover */
+         .info-card::before, .team-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit; /* Match parent's border radius */
+            padding: 1px; /* Thickness of the border */
+            background: linear-gradient(120deg, var(--accent-magenta), var(--accent-cyan));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+                   mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+            pointer-events: none; /* Allow clicks through */
+        }
+        .info-card:hover::before, .team-card:hover::before {
+            opacity: 1;
+        }
+
+
+        /* Team Card Specific Hover */
+        .team-card:hover .team-img-wrapper {
+             border-color: var(--accent-magenta);
+        }
+         .team-card:hover .team-img {
+            transform: scale(1.08);
+         }
+         .team-img {
+             transition: transform 0.35s ease-in-out;
+         }
+         .team-social a {
+             color: var(--text-medium);
+             transition: color 0.3s ease, transform 0.3s ease;
+         }
+         .team-social a:hover {
+            color: var(--accent-cyan);
+            transform: scale(1.1);
+         }
+         .team-img-wrapper {
+            border: 3px solid #475569; /* Slightly lighter border */
+            transition: border-color 0.3s ease-in-out;
+         }
+
+
+        /* Animations (Keep existing, maybe adjust duration/easing) */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+         @keyframes pulseGlow { /* Button Pulse with Glow */
+            0%, 100% { transform: scale(1); box-shadow: 0 0 15px var(--glow-cyan); }
+            50% { transform: scale(1.05); box-shadow: 0 0 25px var(--glow-cyan); }
+         }
+
+        /* Animation Utilities */
+        .animate-fadeInUp { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
+        .animate-fadeInLeft { animation: fadeInLeft 0.8s ease-out forwards; opacity: 0; }
+        .animate-fadeInRight { animation: fadeInRight 0.8s ease-out forwards; opacity: 0; }
+        .animate-pulse-glow-btn { animation: pulseGlow 2.5s infinite ease-in-out; }
+
+        /* Animation Delays (Keep existing) */
+        .delay-100 { animation-delay: 0.1s; } .delay-200 { animation-delay: 0.2s; } .delay-300 { animation-delay: 0.3s; } .delay-400 { animation-delay: 0.4s; } .delay-500 { animation-delay: 0.5s; } .delay-600 { animation-delay: 0.6s; } .delay-700 { animation-delay: 0.7s; }
+
+
+        /* Header Background */
+        .header-bg-futuristic {
+             /* Replace with a futuristic, dark image */
+             background-image: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)), url('https://images.unsplash.com/photo-1581092916380-adf735b1f34a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80'); /* Example: Dark Abstract Tech Lines */
+             /* Alt: url('https://images.unsplash.com/photo-1518773553398-650c184e0bb3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80'); /* Example: Circuit Board Dark */
+             background-size: cover;
+             background-position: center;
+             background-attachment: fixed; /* Parallax-like effect */
+        }
+
+        /* Scrolled Navigation Style */
+        .nav-scrolled {
+            background-color: rgba(15, 23, 42, 0.85); /* Dark background with transparency */
+            backdrop-filter: blur(12px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+         /* Mobile Menu Styling */
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(100%); /* Start off-screen */
+            background-color: var(--bg-card); /* Use card background for menu */
+            border-left: 1px solid #334155;
+        }
+        .mobile-menu.active {
+            transform: translateX(0); /* Slide in */
+        }
+        .mobile-menu a:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* Custom Scrollbar (Optional, Webkit only) */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: var(--accent-cyan);
+            border-radius: 4px;
+            border: 2px solid var(--bg-dark);
+        }
+         ::-webkit-scrollbar-thumb:hover {
+             background-color: var(--accent-magenta);
+         }
+
+        /* Link styling */
+        a {
+            transition: color 0.3s ease;
+        }
+        a.link-accent {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+        a.link-accent:hover {
+            color: var(--accent-magenta);
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-200"> 
+
+   
+    <nav id="navbar" class="sticky top-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="text-3xl font-bold text-white hover:opacity-90 transition duration-300">
+                <span class="flex items-center gap-2">
+                    <i data-lucide="cpu" class="text-cyan-400"></i> 
+                    Vidyuth
+                </span>
+            </a>
+           
+            <div class="hidden md:flex space-x-8">
+                <a href="#about" class="text-slate-300 hover:text-cyan-400 font-medium transition duration-200">About</a>
+                <a href="#events" class="text-slate-300 hover:text-cyan-400 font-medium transition duration-200">Events</a>
+                <a href="#team" class="text-slate-300 hover:text-cyan-400 font-medium transition duration-200">Team</a>
+                <a href="#contact" class="text-slate-300 hover:text-cyan-400 font-medium transition duration-200">Contact</a>
+            </div>
+             
+            <button id="mobile-menu-button" class="md:hidden text-slate-300 hover:text-cyan-400 focus:outline-none">
+                 <i data-lucide="menu" class="h-7 w-7"></i>
+            </button>
+        </div>
+       
+        <div id="mobile-menu" class="mobile-menu fixed inset-y-0 right-0 w-64 shadow-xl p-6 z-40 md:hidden">
+             <button id="mobile-menu-close-button" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                 <i data-lucide="x" class="h-6 w-6"></i>
+             </button>
+            <div class="mt-12 flex flex-col space-y-6">
+                 <a href="#about" class="text-slate-200 text-lg font-medium block">About Us</a>
+                 <a href="#events" class="text-slate-200 text-lg font-medium block">Events</a>
+                 <a href="#team" class="text-slate-200 text-lg font-medium block">Team</a>
+                 <a href="#contact" class="text-slate-200 text-lg font-medium block">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    
+    <header id="hero" class="relative text-white text-center py-32 md:py-48 header-bg-futuristic">
+        <div class="relative z-10 animate-fadeInUp">
+            <h1 class="text-6xl md:text-8xl font-extrabold mb-5 title-gradient-neon">VIDYUTH</h1>
+            <p class="text-xl md:text-3xl text-slate-300 mb-10 animate-fadeInUp delay-100 font-light tracking-wider">Electrical & Electronics Association</p>
+            <a href="#about" class="inline-block bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-400 hover:to-purple-500 text-white font-semibold py-3 px-10 rounded-full transition duration-300 animate-fadeInUp delay-200 animate-pulse-glow-btn shadow-lg hover:shadow-xl transform hover:scale-105">
+                Initiate Exploration <i data-lucide="rocket" class="inline-block ml-2 h-5 w-5"></i> 
+            </a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-20 md:py-24">
+
+        
+        <section id="about" class="mb-24 md:mb-32 scroll-mt-20">
+            <h2 class="text-4xl md:text-5xl font-bold text-white text-center mb-16 section-heading justify-center animate-fadeInUp">
+                <i data-lucide="atom"></i> About Vidyuth
+            </h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="animate-fadeInLeft delay-100">
+                     
+                    <img src="https://placehold.co/600x450/1e293b/94a3b8?text=Futuristic+Collaboration+Hub" alt="Futuristic Collaboration" class="rounded-xl shadow-2xl w-full h-auto object-cover border-2 border-slate-700" onerror="this.src='https://placehold.co/600x450/111827/475569?text=Image+Error'; this.alt='Error loading collaboration image'">
+                </div>
+                <div class="animate-fadeInRight delay-200">
+                    <p class="text-xl text-slate-300 mb-5 leading-relaxed">
+                        Vidyuth pulses at the core of the Department of Electrical and Electronics Engineering at <strong class="font-semibold text-cyan-400">[College of Engineering]</strong>. We engineer experiences that spark curiosity, accelerate technical mastery, and launch groundbreaking innovations within the EEE community.
+                    </p>
+                    <p class="text-lg text-slate-400 mb-6 leading-relaxed">
+                        Our mission protocol: bridge the theoretical matrix with tangible applications via high-frequency workshops, insight-driven tech talks, advanced project modules, and synergistic industry interfaces.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start text-slate-300 text-lg"><i data-lucide="terminal-square" class="text-cyan-400 mr-3 h-6 w-6 flex-shrink-0 mt-1"></i> Elevating technical proficiency & cognitive exploration.</li>
+                        <li class="flex items-start text-slate-300 text-lg"><i data-lucide="brain-circuit" class="text-purple-400 mr-3 h-6 w-6 flex-shrink-0 mt-1"></i> Catalyzing next-gen innovation & deep research.</li>
+                        <li class="flex items-start text-slate-300 text-lg"><i data-lucide="network" class="text-lime-400 mr-3 h-6 w-6 flex-shrink-0 mt-1"></i> Forging robust industry network protocols.</li>
+                        <li class="flex items-start text-slate-300 text-lg"><i data-lucide="users-round" class="text-orange-400 mr-3 h-6 w-6 flex-shrink-0 mt-1"></i> Constructing a hyper-collaborative support system.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+         
+        <section id="events" class="mb-24 md:mb-32 scroll-mt-20">
+            <h2 class="text-4xl md:text-5xl font-bold text-white text-center mb-16 section-heading justify-center animate-fadeInUp delay-100">
+                <i data-lucide="calendar-sync"></i> Upcoming Transmissions 
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+               
+                <div class="info-card p-8 animate-fadeInUp delay-200">
+                    <h3 class="text-2xl font-semibold mb-3 text-cyan-400">Workshop: Quantum IoT</h3>
+                    <p class="text-slate-500 text-base mb-4 flex items-center gap-2"><i data-lucide="calendar" class="h-4 w-4"></i>Timestamp: May 10, 2025</p>
+                    <p class="text-slate-400 leading-relaxed mb-5">Interface with the Internet of Things paradigm. A high-bandwidth, hands-on system initiation.</p>
+                    <a href="#" class="link-accent group"> 
+                        Access Registration <i data-lucide="arrow-right-circle" class="inline-block ml-1 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"></i>
+                    </a>
+                </div>
+               
+                <div class="info-card p-8 animate-fadeInUp delay-300">
+                    <h3 class="text-2xl font-semibold mb-3 text-cyan-400">Tech Talk: Neural Networks & EV</h3> 
+                     <p class="text-slate-500 text-base mb-4 flex items-center gap-2"><i data-lucide="calendar" class="h-4 w-4"></i>Timestamp: May 25, 2025</p>
+                    <p class="text-slate-400 leading-relaxed mb-5">Industry expert decrypts the synergy between AI and Electric Vehicles. Explore career vectors.</p>
+                     <a href="#" class="link-accent group">
+                        Download Briefing <i data-lucide="arrow-right-circle" class="inline-block ml-1 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"></i>
+                    </a>
+                </div>
+                
+                <div class="info-card p-8 animate-fadeInUp delay-400">
+                    <h3 class="text-2xl font-semibold mb-3 text-cyan-400">Project Grid: Electra Prime</h3>
+                    <p class="text-slate-500 text-base mb-4 flex items-center gap-2"><i data-lucide="calendar-check" class="h-4 w-4"></i>Submission Deadline: June 15, 2025</p>
+                    <p class="text-slate-400 leading-relaxed mb-5">Deploy your advanced EEE projects onto the Grid. Compete for high-value resources and recognition.</p>
+                     <a href="#" class="link-accent group">
+                        Review Protocols <i data-lucide="arrow-right-circle" class="inline-block ml-1 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+      
+        <section id="team" class="mb-24 md:mb-32 scroll-mt-20">
+            <h2 class="text-4xl md:text-5xl font-bold text-white text-center mb-16 section-heading justify-center animate-fadeInUp delay-200">
+                <i data-lucide="scan-face"></i> Command Crew 
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+                
+                <div class="team-card text-center p-6 animate-fadeInUp delay-300">
+                    <div class="team-img-wrapper w-36 h-36 mx-auto rounded-full overflow-hidden mb-5 shadow-md p-1"> 
+                        <img src="https://placehold.co/200x200/1e293b/94a3b8?text=Cmdr" alt="Team Member 1 - Commander" class="team-img w-full h-full object-cover rounded-full" onerror="this.src='https://placehold.co/200x200/111827/475569?text=Err'; this.alt='Error loading Commander image'">
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-1">Unit 734 (Aarav)</h3> 
+                    <p class="text-purple-400 font-medium mb-3">Lead Operator</p> 
+                    <div class="team-social flex justify-center space-x-3 mt-4">
+                        <a href="#" aria-label="LinkedIn"><i data-lucide="linkedin" class="h-5 w-5"></i></a>
+                        <a href="#" aria-label="GitHub"><i data-lucide="github" class="h-5 w-5"></i></a> 
+                        <a href="#" aria-label="Mail"><i data-lucide="mail" class="h-5 w-5"></i></a>
+                    </div>
+                </div>
+                 
+                 <div class="team-card text-center p-6 animate-fadeInUp delay-400">
+                    <div class="team-img-wrapper w-36 h-36 mx-auto rounded-full overflow-hidden mb-5 shadow-md p-1">
+                        <img src="https://placehold.co/200x200/1e293b/94a3b8?text=XO" alt="Team Member 2 - Executive Officer" class="team-img w-full h-full object-cover rounded-full" onerror="this.src='https://placehold.co/200x200/111827/475569?text=Err'; this.alt='Error loading XO image'">
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-1">Analyst Priya</h3> {/* Example Name */}
+                    <p class="text-purple-400 font-medium mb-3">Strategic Planner</p> {/* Changed Title */}
+                     <div class="team-social flex justify-center space-x-3 mt-4">
+                         <a href="#" aria-label="LinkedIn"><i data-lucide="linkedin" class="h-5 w-5"></i></a>
+                        <a href="#" aria-label="GitHub"><i data-lucide="github" class="h-5 w-5"></i></a>
+                        <a href="#" aria-label="Mail"><i data-lucide="mail" class="h-5 w-5"></i></a>
+                    </div>
+                </div>
+               
+                <div class="team-card text-center p-6 animate-fadeInUp delay-500">
+                     <div class="team-img-wrapper w-36 h-36 mx-auto rounded-full overflow-hidden mb-5 shadow-md p-1">
+                        <img src="https://placehold.co/200x200/1e293b/94a3b8?text=Comms" alt="Team Member 3 - Comms Officer" class="team-img w-full h-full object-cover rounded-full" onerror="this.src='https://placehold.co/200x200/111827/475569?text=Err'; this.alt='Error loading Comms image'">
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-1">Technician Rohan</h3> 
+                    <p class="text-purple-400 font-medium mb-3">Network Scribe</p> 
+                    <div class="team-social flex justify-center space-x-3 mt-4">
+                        <a href="#" aria-label="LinkedIn"><i data-lucide="linkedin" class="h-5 w-5"></i></a>
+                        <a href="#" aria-label="GitHub"><i data-lucide="github" class="h-5 w-5"></i></a>
+                        <a href="#" aria-label="Mail"><i data-lucide="mail" class="h-5 w-5"></i></a>
+                    </div>
+                </div>
+                 
+                 <div class="team-card text-center p-6 animate-fadeInUp delay-600">
+                     <div class="team-img-wrapper w-36 h-36 mx-auto rounded-full overflow-hidden mb-5 shadow-md p-1">
+                        <img src="https://placehold.co/200x200/1e293b/94a3b8?text=Logi" alt="Team Member 4 - Logistics" class="team-img w-full h-full object-cover rounded-full" onerror="this.src='https://placehold.co/200x200/111827/475569?text=Err'; this.alt='Error loading Logistics image'">
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-1">Specialist Ananya</h3> 
+                    <p class="text-purple-400 font-medium mb-3">Resource Manager</p>
+                    <div class="team-social flex justify-center space-x-3 mt-4">
+                         <a href="#" aria-label="LinkedIn"><i data-lucide="linkedin" class="h-5 w-5"></i></a>
+                        <a href="#" aria-label="GitHub"><i data-lucide="github" class="h-5 w-5"></i></a>
+                        <a href="#" aria-label="Mail"><i data-lucide="mail" class="h-5 w-5"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         
+        <section id="contact" class="scroll-mt-20">
+             <h2 class="text-4xl md:text-5xl font-bold text-white text-center mb-12 section-heading justify-center animate-fadeInUp delay-300">
+                 <i data-lucide="message-square-code"></i> Establish Connection 
+            </h2>
+            <div class="max-w-3xl mx-auto bg-slate-800 p-10 rounded-xl shadow-2xl border border-slate-700 animate-fadeInUp delay-400">
+                <p class="text-center text-lg text-slate-400 mb-8 leading-relaxed">
+                    Initiate secure comms, share project blueprints, or propose collaborative ventures. Our channel is open.
+                </p>
+                <div class="space-y-6 text-lg">
+                     <p class="flex items-center justify-center flex-wrap gap-x-3 gap-y-1 text-slate-300">
+                         <i data-lucide="mail-fast" class="text-cyan-400 h-6 w-6"></i>
+                         <span>Direct Channel:</span>
+                         <a href="mailto:vidyuth.eee@[yourcollege].edu" class="link-accent">vidyuth.eee@[yourcollege].edu</a> 
+                     </p>
+                     <p class="flex items-center justify-center flex-wrap gap-x-3 gap-y-1 text-slate-300">
+                         <i data-lucide="map-pin" class="text-cyan-400 h-6 w-6"></i>
+                         <span>Coordinates:</span>
+                         <span class="font-medium">EEE Department, College of Engineering Muttathara, Trivandrum, Kerala</span> 
+                     </p>
+                     <div class="text-center pt-4">
+                        <p class="text-slate-400 mb-4">Sync with our network:</p>
+                        <div class="flex justify-center space-x-6">
+                             
+                            <a href="#" aria-label="GitHub" class="text-slate-400 hover:text-white transition duration-300 transform hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">
+                                <i data-lucide="github" class="h-7 w-7"></i>
+                            </a>
+                            <a href="#" aria-label="LinkedIn" class="text-slate-400 hover:text-cyan-400 transition duration-300 transform hover:scale-110 hover:drop-shadow-[0_0_8px_var(--glow-cyan)]">
+                                <i data-lucide="linkedin" class="h-7 w-7"></i>
+                            </a>
+                             <a href="#" aria-label="Matrix/Discord" class="text-slate-400 hover:text-purple-400 transition duration-300 transform hover:scale-110 hover:drop-shadow-[0_0_8px_var(--glow-magenta)]">
+                                <i data-lucide="message-circle" class="h-7 w-7"></i> 
+                            </a>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    {/* Footer */}
+    <footer class="bg-slate-950 text-slate-500 text-center py-10 mt-24 border-t border-slate-800"> 
+        <div class="container mx-auto px-4">
+            <div class="mb-4">
+                 <a href="#" class="text-2xl font-bold text-slate-300 hover:text-white transition duration-300">
+                    <span class="flex items-center justify-center gap-2">
+                        <i data-lucide="cpu" class="text-cyan-400"></i>
+                        Vidyuth
+                    </span>
+                </a>
+            </div>
+            <p>&copy; <span id="year"></span> Vidyuth EEE Association | <span class="font-semibold">[College of Engineering Muttathara]</span> | All Rights Reserved.</p> 
+            <p class="text-sm text-slate-600 mt-2">System Online | Designed with <i data-lucide="binary" class="inline-block h-4 w-4 text-cyan-500"></i> & <i data-lucide="sparkles" class="inline-block h-4 w-4 text-purple-500"></i></p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        const navHeight = navbar.offsetHeight; // Get navbar height
+        window.onscroll = () => {
+            if (window.scrollY > navHeight / 2) { // Add class earlier
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        };
+
+         // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+
+        if (mobileMenuButton && mobileMenu && mobileMenuCloseButton) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.add('active');
+            });
+
+            mobileMenuCloseButton.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('active');
+                });
+            });
+        }
+
+    </script>
+
+</body>
+</html>
