@@ -1,486 +1,581 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vidyuth - EEE Association | Engineering the Future</title>
+    <title>Vidhyuth - EEE Association</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@600;700;800&family=Inter:wght@400;600&display=swap" rel="stylesheet"> 
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600;700&family=Tektur:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #0f172a; /* Deeper Slate */
-            --bg-card: #1e293b; /* Slate 800 */
-            --text-light: #e2e8f0; /* Slate 200 */
-            --text-medium: #94a3b8; /* Slate 400 */
-            --accent-cyan: #22d3ee;
-            --accent-magenta: #d946ef;
-            --glow-cyan: rgba(34, 211, 238, 0.5);
-            --glow-magenta: rgba(217, 70, 239, 0.5);
+            --primary: #52489c;
+            --secondary: #4062bb;
+            --accent: #59c3c3;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
         }
 
-        /* Custom styles */
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
+            font-family: 'Oxanium', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
         }
 
-        h1, h2, h3, h4, h5, h6 {
-             font-family: 'Exo 2', sans-serif; 
+        h1, h2, h3, h4 {
+            font-family: 'Tektur', cursive;
         }
 
-        /* Neon Gradient Title */
-        .title-gradient-neon {
-            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta), var(--accent-cyan));
-            background-size: 200% auto; 
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: textGradientShift 5s linear infinite;
+        .card-animation {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
         }
 
-        @keyframes textGradientShift {
-            0% { background-position: 0% center; }
-            50% { background-position: 100% center; }
-            100% { background-position: 0% center; }
+        .card-animation:hover {
+            transform: perspective(1000px) rotateY(10deg) rotateX(5deg) scale(1.05);
+            box-shadow: 0 20px 50px rgba(89, 195, 195, 0.4);
         }
 
-
-        /* Section Heading */
-        .section-heading {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-        .section-heading i { /* Use accent color for icons */
-            color: var(--accent-cyan);
-        }
-
-
-        /* Card Styling & Hover Effects */
-        .info-card, .team-card {
-            background-color: var(--bg-card);
-            border: 1px solid #334155; /* Subtle border */
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
-            position: relative;
-            overflow: hidden;
-            border-radius: 0.75rem; /* Slightly larger radius */
-        }
-        .info-card:hover, .team-card:hover {
-            transform: translateY(-8px) scale(1.02); /* Lift and slightly enlarge */
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 25px var(--glow-cyan);
-        }
-
-         /* Optional: Animated Gradient Border on Hover */
-         .info-card::before, .team-card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: inherit; /* Match parent's border radius */
-            padding: 1px; /* Thickness of the border */
-            background: linear-gradient(120deg, var(--accent-magenta), var(--accent-cyan));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-                   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-                   mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.4s ease-in-out;
-            pointer-events: none; /* Allow clicks through */
-        }
-        .info-card:hover::before, .team-card:hover::before {
+        .member-card:hover::before {
             opacity: 1;
+            transform: scale(1);
         }
 
-
-        /* Team Card Specific Hover */
-        .team-card:hover .team-img-wrapper {
-             border-color: var(--accent-magenta);
-        }
-         .team-card:hover .team-img {
-            transform: scale(1.08);
-         }
-         .team-img {
-             transition: transform 0.35s ease-in-out;
-         }
-         .team-social a {
-             color: var(--text-medium);
-             transition: color 0.3s ease, transform 0.3s ease;
-         }
-         .team-social a:hover {
-            color: var(--accent-cyan);
-            transform: scale(1.1);
-         }
-         .team-img-wrapper {
-            border: 3px solid #475569; /* Slightly lighter border */
-            transition: border-color 0.3s ease-in-out;
-         }
-
-
-        /* Animations (Keep existing, maybe adjust duration/easing) */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInLeft {
-            from { opacity: 0; transform: translateX(-30px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes fadeInRight {
-            from { opacity: 0; transform: translateX(30px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-         @keyframes pulseGlow { /* Button Pulse with Glow */
-            0%, 100% { transform: scale(1); box-shadow: 0 0 15px var(--glow-cyan); }
-            50% { transform: scale(1.05); box-shadow: 0 0 25px var(--glow-cyan); }
-         }
-
-        /* Animation Utilities */
-        .animate-fadeInUp { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
-        .animate-fadeInLeft { animation: fadeInLeft 0.8s ease-out forwards; opacity: 0; }
-        .animate-fadeInRight { animation: fadeInRight 0.8s ease-out forwards; opacity: 0; }
-        .animate-pulse-glow-btn { animation: pulseGlow 2.5s infinite ease-in-out; }
-
-        /* Animation Delays (Keep existing) */
-        .delay-100 { animation-delay: 0.1s; } .delay-200 { animation-delay: 0.2s; } .delay-300 { animation-delay: 0.3s; } .delay-400 { animation-delay: 0.4s; } .delay-500 { animation-delay: 0.5s; } .delay-600 { animation-delay: 0.6s; } .delay-700 { animation-delay: 0.7s; }
-
-
-        /* Header Background */
-        .header-bg-futuristic {
-             /* Replace with a futuristic, dark image */
-             background-image: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)), url('https://images.unsplash.com/photo-1581092916380-adf735b1f34a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80'); /* Example: Dark Abstract Tech Lines */
-             /* Alt: url('https://images.unsplash.com/photo-1518773553398-650c184e0bb3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80'); /* Example: Circuit Board Dark */
-             background-size: cover;
-             background-position: center;
-             background-attachment: fixed; /* Parallax-like effect */
+        .member-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff00cc, #3333ff, #00ccff, #33ff33, #ffcc00, #ff00cc);
+            z-index: -1;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.5s ease;
+            background-size: 400%;
+            animation: animate 20s linear infinite;
         }
 
-        /* Scrolled Navigation Style */
-        .nav-scrolled {
-            background-color: rgba(15, 23, 42, 0.85); /* Dark background with transparency */
-            backdrop-filter: blur(12px);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        @keyframes animate {
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
         }
 
-         /* Mobile Menu Styling */
-        .mobile-menu {
-            transition: transform 0.3s ease-in-out;
-            transform: translateX(100%); /* Start off-screen */
-            background-color: var(--bg-card); /* Use card background for menu */
-            border-left: 1px solid #334155;
-        }
-        .mobile-menu.active {
-            transform: translateX(0); /* Slide in */
-        }
-        .mobile-menu a:hover {
-            color: var(--accent-cyan);
+        .floating {
+            animation: floating 6s ease-in-out infinite;
         }
 
-        /* Custom Scrollbar (Optional, Webkit only) */
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .slide-in {
+            animation: slideIn 1s cubic-bezier(0.68, -0.6, 0.32, 1.6) forwards;
+            opacity: 0;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .grid-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .grid-stack > div {
+            aspect-ratio: 1;
+            display: grid;
+            place-items: center;
+        }
+
+        /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 12px;
+            height: 12px;
         }
+
         ::-webkit-scrollbar-track {
-            background: var(--bg-dark);
+            background: var(--dark);
         }
+
         ::-webkit-scrollbar-thumb {
-            background-color: var(--accent-cyan);
-            border-radius: 4px;
-            border: 2px solid var(--bg-dark);
-        }
-         ::-webkit-scrollbar-thumb:hover {
-             background-color: var(--accent-magenta);
-         }
-
-        /* Link styling */
-        a {
-            transition: color 0.3s ease;
-        }
-        a.link-accent {
-            color: var(--accent-cyan);
-            font-weight: 600;
-        }
-        a.link-accent:hover {
-            color: var(--accent-magenta);
-            text-decoration: underline;
-            text-underline-offset: 4px;
+            background: var(--secondary);
+            border-radius: 6px;
+            border: 3px solid var(--dark);
         }
 
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-200"> 
+<body>
+    <!-- Background Elements -->
+    <div class="fractal"></div>
+    <div class="binary-rain" id="binaryRain"></div>
 
-   
-    <nav id="navbar" class="sticky top-0 z-50 transition-all duration-300">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="#" class="text-3xl font-bold text-white hover:opacity-90 transition duration-300">
-                <span class="flex items-center gap-2">
-                    <i data-lucide="cpu" class="text-cyan-400"></i> 
-                    Vidyuth
-                </span>
-            </a>
-           
-            <div class="hidden md:flex space-x-8">
-                <a href="#about" class="text-slate-300 hover:text-cyan-400 font-medium transition duration-200">About</a>
-                <a href="#events" class="text-slate-300 hover:text-cyan-400 font-medium transition duration-200">Events</a>
-                <a href="#team" class="text-slate-300 hover:text-cyan-400 font-medium transition duration-200">Team</a>
-                <a href="#contact" class="text-slate-300 hover:text-cyan-400 font-medium transition duration-200">Contact</a>
-            </div>
-             
-            <button id="mobile-menu-button" class="md:hidden text-slate-300 hover:text-cyan-400 focus:outline-none">
-                 <i data-lucide="menu" class="h-7 w-7"></i>
-            </button>
-        </div>
-       
-        <div id="mobile-menu" class="mobile-menu fixed inset-y-0 right-0 w-64 shadow-xl p-6 z-40 md:hidden">
-             <button id="mobile-menu-close-button" class="absolute top-4 right-4 text-slate-400 hover:text-white">
-                 <i data-lucide="x" class="h-6 w-6"></i>
-             </button>
-            <div class="mt-12 flex flex-col space-y-6">
-                 <a href="#about" class="text-slate-200 text-lg font-medium block">About Us</a>
-                 <a href="#events" class="text-slate-200 text-lg font-medium block">Events</a>
-                 <a href="#team" class="text-slate-200 text-lg font-medium block">Team</a>
-                 <a href="#contact" class="text-slate-200 text-lg font-medium block">Contact</a>
-            </div>
-        </div>
-    </nav>
-
-    
-    <header id="hero" class="relative text-white text-center py-32 md:py-48 header-bg-futuristic">
-        <div class="relative z-10 animate-fadeInUp">
-            <h1 class="text-6xl md:text-8xl font-extrabold mb-5 title-gradient-neon">VIDYUTH</h1>
-            <p class="text-xl md:text-3xl text-slate-300 mb-10 animate-fadeInUp delay-100 font-light tracking-wider">Electrical & Electronics Association</p>
-            <a href="#about" class="inline-block bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-400 hover:to-purple-500 text-white font-semibold py-3 px-10 rounded-full transition duration-300 animate-fadeInUp delay-200 animate-pulse-glow-btn shadow-lg hover:shadow-xl transform hover:scale-105">
-                Initiate Exploration <i data-lucide="rocket" class="inline-block ml-2 h-5 w-5"></i> 
-            </a>
+    <!-- Header Section -->
+    <header class="relative overflow-hidden h-screen flex items-center justify-center">
+         <img src="https://i.postimg.cc/SXXwkypY/ph1.jpg" alt="Vidhyuth background" class="absolute inset-0 w-full h-full object-cover opacity-30">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/80 to-black/30"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <h1 class="text-6xl md:text-9xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500 mb-6">VIDYUTH</h1>
+            <p class="text-2xl md:text-4xl font-light text-blue-200 slide-in" style="animation-delay: 0.2s;">
+                Electrical & Electronics Engineering Association
+            </p>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-20 md:py-24">
-
-        
-        <section id="about" class="mb-24 md:mb-32 scroll-mt-20">
-            <h2 class="text-4xl md:text-5xl font-bold text-white text-center mb-16 section-heading justify-center animate-fadeInUp">
-                <i data-lucide="atom"></i> About Vidyuth
-            </h2>
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="animate-fadeInLeft delay-100">
-                     
-                    <img src="https://placehold.co/600x450/1e293b/94a3b8?text=Futuristic+Collaboration+Hub" alt="Futuristic Collaboration" class="rounded-xl shadow-2xl w-full h-auto object-cover border-2 border-slate-700" onerror="this.src='https://placehold.co/600x450/111827/475569?text=Image+Error'; this.alt='Error loading collaboration image'">
-                </div>
-                <div class="animate-fadeInRight delay-200">
-                    <p class="text-xl text-slate-300 mb-5 leading-relaxed">
-                        Vidyuth pulses at the core of the Department of Electrical and Electronics Engineering at <strong class="font-semibold text-cyan-400">[College of Engineering]</strong>. We engineer experiences that spark curiosity, accelerate technical mastery, and launch groundbreaking innovations within the EEE community.
-                    </p>
-                    <p class="text-lg text-slate-400 mb-6 leading-relaxed">
-                        Our mission protocol: bridge the theoretical matrix with tangible applications via high-frequency workshops, insight-driven tech talks, advanced project modules, and synergistic industry interfaces.
-                    </p>
-                    <ul class="space-y-3">
-                        <li class="flex items-start text-slate-300 text-lg"><i data-lucide="terminal-square" class="text-cyan-400 mr-3 h-6 w-6 flex-shrink-0 mt-1"></i> Elevating technical proficiency & cognitive exploration.</li>
-                        <li class="flex items-start text-slate-300 text-lg"><i data-lucide="brain-circuit" class="text-purple-400 mr-3 h-6 w-6 flex-shrink-0 mt-1"></i> Catalyzing next-gen innovation & deep research.</li>
-                        <li class="flex items-start text-slate-300 text-lg"><i data-lucide="network" class="text-lime-400 mr-3 h-6 w-6 flex-shrink-0 mt-1"></i> Forging robust industry network protocols.</li>
-                        <li class="flex items-start text-slate-300 text-lg"><i data-lucide="users-round" class="text-orange-400 mr-3 h-6 w-6 flex-shrink-0 mt-1"></i> Constructing a hyper-collaborative support system.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-         
-        <section id="events" class="mb-24 md:mb-32 scroll-mt-20">
-            <h2 class="text-4xl md:text-5xl font-bold text-white text-center mb-16 section-heading justify-center animate-fadeInUp delay-100">
-                <i data-lucide="calendar-sync"></i> Upcoming Transmissions 
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-               
-                <div class="info-card p-8 animate-fadeInUp delay-200">
-                    <h3 class="text-2xl font-semibold mb-3 text-cyan-400">Workshop: Quantum IoT</h3>
-                    <p class="text-slate-500 text-base mb-4 flex items-center gap-2"><i data-lucide="calendar" class="h-4 w-4"></i>Timestamp: May 10, 2025</p>
-                    <p class="text-slate-400 leading-relaxed mb-5">Interface with the Internet of Things paradigm. A high-bandwidth, hands-on system initiation.</p>
-                    <a href="#" class="link-accent group"> 
-                        Access Registration <i data-lucide="arrow-right-circle" class="inline-block ml-1 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"></i>
+    <!-- Main Navigation -->
+    <nav class="sticky top-0 z-50 bg-black/80 backdrop-blur-sm border-y border-blue-500/20">
+        <div class="container mx-auto px-6">
+            <ul class="flex flex-wrap justify-center gap-6 py-4">
+                <li class="group">
+                    <a href="#about" class="text-white hover:text-accent transition-all duration-300 relative group-hover:neon-text">
+                        <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full"></span>
+                        About
                     </a>
-                </div>
-               
-                <div class="info-card p-8 animate-fadeInUp delay-300">
-                    <h3 class="text-2xl font-semibold mb-3 text-cyan-400">Tech Talk: Neural Networks & EV</h3> 
-                     <p class="text-slate-500 text-base mb-4 flex items-center gap-2"><i data-lucide="calendar" class="h-4 w-4"></i>Timestamp: May 25, 2025</p>
-                    <p class="text-slate-400 leading-relaxed mb-5">Industry expert decrypts the synergy between AI and Electric Vehicles. Explore career vectors.</p>
-                     <a href="#" class="link-accent group">
-                        Download Briefing <i data-lucide="arrow-right-circle" class="inline-block ml-1 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"></i>
+                </li>
+                <li class="group">
+                    <a href="#members" class="text-white hover:text-accent transition-all duration-300 relative group-hover:neon-text">
+                        <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full"></span>
+                        Members
                     </a>
-                </div>
-                
-                <div class="info-card p-8 animate-fadeInUp delay-400">
-                    <h3 class="text-2xl font-semibold mb-3 text-cyan-400">Project Grid: Electra Prime</h3>
-                    <p class="text-slate-500 text-base mb-4 flex items-center gap-2"><i data-lucide="calendar-check" class="h-4 w-4"></i>Submission Deadline: June 15, 2025</p>
-                    <p class="text-slate-400 leading-relaxed mb-5">Deploy your advanced EEE projects onto the Grid. Compete for high-value resources and recognition.</p>
-                     <a href="#" class="link-accent group">
-                        Review Protocols <i data-lucide="arrow-right-circle" class="inline-block ml-1 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"></i>
+                </li>
+                <li class="group">
+                    <a href="#events" class="text-white hover:text-accent transition-all duration-300 relative group-hover:neon-text">
+                        <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full"></span>
+                        Events
                     </a>
-                </div>
-            </div>
-        </section>
+                </li>
+                <li class="group">
+                    <a href="#contact" class="text-white hover:text-accent transition-all duration-300 relative group-hover:neon-text">
+                        <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full"></span>
+                        Contact
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-      
-        <section id="team" class="mb-24 md:mb-32 scroll-mt-20">
-            <h2 class="text-4xl md:text-5xl font-bold text-white text-center mb-16 section-heading justify-center animate-fadeInUp delay-200">
-                <i data-lucide="scan-face"></i> Command Crew 
-            </h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
-                
-                <div class="team-card text-center p-6 animate-fadeInUp delay-300">
-                    <div class="team-img-wrapper w-36 h-36 mx-auto rounded-full overflow-hidden mb-5 shadow-md p-1"> 
-                        <img src="https://placehold.co/200x200/1e293b/94a3b8?text=Cmdr" alt="Team Member 1 - Commander" class="team-img w-full h-full object-cover rounded-full" onerror="this.src='https://placehold.co/200x200/111827/475569?text=Err'; this.alt='Error loading Commander image'">
-                    </div>
-                    <h3 class="text-xl font-semibold text-white mb-1">Unit 734 (Aarav)</h3> 
-                    <p class="text-purple-400 font-medium mb-3">Lead Operator</p> 
-                    <div class="team-social flex justify-center space-x-3 mt-4">
-                        <a href="#" aria-label="LinkedIn"><i data-lucide="linkedin" class="h-5 w-5"></i></a>
-                        <a href="#" aria-label="GitHub"><i data-lucide="github" class="h-5 w-5"></i></a> 
-                        <a href="#" aria-label="Mail"><i data-lucide="mail" class="h-5 w-5"></i></a>
-                    </div>
-                </div>
-                 
-                 <div class="team-card text-center p-6 animate-fadeInUp delay-400">
-                    <div class="team-img-wrapper w-36 h-36 mx-auto rounded-full overflow-hidden mb-5 shadow-md p-1">
-                        <img src="https://placehold.co/200x200/1e293b/94a3b8?text=XO" alt="Team Member 2 - Executive Officer" class="team-img w-full h-full object-cover rounded-full" onerror="this.src='https://placehold.co/200x200/111827/475569?text=Err'; this.alt='Error loading XO image'">
-                    </div>
-                    <h3 class="text-xl font-semibold text-white mb-1">Analyst Priya</h3> {/* Example Name */}
-                    <p class="text-purple-400 font-medium mb-3">Strategic Planner</p> {/* Changed Title */}
-                     <div class="team-social flex justify-center space-x-3 mt-4">
-                         <a href="#" aria-label="LinkedIn"><i data-lucide="linkedin" class="h-5 w-5"></i></a>
-                        <a href="#" aria-label="GitHub"><i data-lucide="github" class="h-5 w-5"></i></a>
-                        <a href="#" aria-label="Mail"><i data-lucide="mail" class="h-5 w-5"></i></a>
-                    </div>
-                </div>
-               
-                <div class="team-card text-center p-6 animate-fadeInUp delay-500">
-                     <div class="team-img-wrapper w-36 h-36 mx-auto rounded-full overflow-hidden mb-5 shadow-md p-1">
-                        <img src="https://placehold.co/200x200/1e293b/94a3b8?text=Comms" alt="Team Member 3 - Comms Officer" class="team-img w-full h-full object-cover rounded-full" onerror="this.src='https://placehold.co/200x200/111827/475569?text=Err'; this.alt='Error loading Comms image'">
-                    </div>
-                    <h3 class="text-xl font-semibold text-white mb-1">Technician Rohan</h3> 
-                    <p class="text-purple-400 font-medium mb-3">Network Scribe</p> 
-                    <div class="team-social flex justify-center space-x-3 mt-4">
-                        <a href="#" aria-label="LinkedIn"><i data-lucide="linkedin" class="h-5 w-5"></i></a>
-                        <a href="#" aria-label="GitHub"><i data-lucide="github" class="h-5 w-5"></i></a>
-                        <a href="#" aria-label="Mail"><i data-lucide="mail" class="h-5 w-5"></i></a>
-                    </div>
-                </div>
-                 
-                 <div class="team-card text-center p-6 animate-fadeInUp delay-600">
-                     <div class="team-img-wrapper w-36 h-36 mx-auto rounded-full overflow-hidden mb-5 shadow-md p-1">
-                        <img src="https://placehold.co/200x200/1e293b/94a3b8?text=Logi" alt="Team Member 4 - Logistics" class="team-img w-full h-full object-cover rounded-full" onerror="this.src='https://placehold.co/200x200/111827/475569?text=Err'; this.alt='Error loading Logistics image'">
-                    </div>
-                    <h3 class="text-xl font-semibold text-white mb-1">Specialist Ananya</h3> 
-                    <p class="text-purple-400 font-medium mb-3">Resource Manager</p>
-                    <div class="team-social flex justify-center space-x-3 mt-4">
-                         <a href="#" aria-label="LinkedIn"><i data-lucide="linkedin" class="h-5 w-5"></i></a>
-                        <a href="#" aria-label="GitHub"><i data-lucide="github" class="h-5 w-5"></i></a>
-                        <a href="#" aria-label="Mail"><i data-lucide="mail" class="h-5 w-5"></i></a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-         
-        <section id="contact" class="scroll-mt-20">
-             <h2 class="text-4xl md:text-5xl font-bold text-white text-center mb-12 section-heading justify-center animate-fadeInUp delay-300">
-                 <i data-lucide="message-square-code"></i> Establish Connection 
-            </h2>
-            <div class="max-w-3xl mx-auto bg-slate-800 p-10 rounded-xl shadow-2xl border border-slate-700 animate-fadeInUp delay-400">
-                <p class="text-center text-lg text-slate-400 mb-8 leading-relaxed">
-                    Initiate secure comms, share project blueprints, or propose collaborative ventures. Our channel is open.
+    <!-- About Section -->
+    <section id="about" class="py-20 relative overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center mb-16">
+                <h2 class="text-4xl font-bold mb-6 neon-text" style="animation-delay: 0.5s;">EMPOWERING ENGINEERS <span class="text-accent">OF</span> TOMORROW</h2>
+                <p class="text-lg text-gray-300 leading-relaxed slide-in" style="animation-delay: 0.7s;">
+                    Vidhyuth is the premier Electrical and Electronics Engineering association dedicated to fostering innovation, collaboration, and excellence among students and faculty at our institution.
                 </p>
-                <div class="space-y-6 text-lg">
-                     <p class="flex items-center justify-center flex-wrap gap-x-3 gap-y-1 text-slate-300">
-                         <i data-lucide="mail-fast" class="text-cyan-400 h-6 w-6"></i>
-                         <span>Direct Channel:</span>
-                         <a href="mailto:vidyuth.eee@[yourcollege].edu" class="link-accent">vidyuth.eee@[yourcollege].edu</a> 
-                     </p>
-                     <p class="flex items-center justify-center flex-wrap gap-x-3 gap-y-1 text-slate-300">
-                         <i data-lucide="map-pin" class="text-cyan-400 h-6 w-6"></i>
-                         <span>Coordinates:</span>
-                         <span class="font-medium">EEE Department, College of Engineering Muttathara, Trivandrum, Kerala</span> 
-                     </p>
-                     <div class="text-center pt-4">
-                        <p class="text-slate-400 mb-4">Sync with our network:</p>
-                        <div class="flex justify-center space-x-6">
-                             
-                            <a href="#" aria-label="GitHub" class="text-slate-400 hover:text-white transition duration-300 transform hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">
-                                <i data-lucide="github" class="h-7 w-7"></i>
-                            </a>
-                            <a href="#" aria-label="LinkedIn" class="text-slate-400 hover:text-cyan-400 transition duration-300 transform hover:scale-110 hover:drop-shadow-[0_0_8px_var(--glow-cyan)]">
-                                <i data-lucide="linkedin" class="h-7 w-7"></i>
-                            </a>
-                             <a href="#" aria-label="Matrix/Discord" class="text-slate-400 hover:text-purple-400 transition duration-300 transform hover:scale-110 hover:drop-shadow-[0_0_8px_var(--glow-magenta)]">
-                                <i data-lucide="message-circle" class="h-7 w-7"></i> 
-                            </a>
-                        </div>
-                     </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                <div class="bg-black/30 backdrop-blur-sm border border-blue-400/20 rounded-2xl p-8 card-animation hover:shadow-2xl hover:shadow-blue-400/20 slide-in" style="animation-delay: 0.3s;">
+                    <div class="text-accent text-4xl mb-4">🧠</div>
+                    <h3 class="text-xl font-bold mb-3">Innovation</h3>
+                    <p class="text-gray-300">We push the boundaries of electrical engineering through cutting-edge research and development projects.</p>
+                </div>
+                <div class="bg-black/30 backdrop-blur-sm border border-blue-400/20 rounded-2xl p-8 card-animation hover:shadow-2xl hover:shadow-blue-400/20 slide-in" style="animation-delay: 0.5s;">
+                    <div class="text-accent text-4xl mb-4">🌐</div>
+                    <h3 class="text-xl font-bold mb-3">Collaboration</h3>
+                    <p class="text-gray-300">Building bridges between students, faculty, and industry professionals to create impactful engineering solutions.</p>
+                </div>
+                <div class="bg-black/30 backdrop-blur-sm border border-blue-400/20 rounded-2xl p-8 card-animation hover:shadow-2xl hover:shadow-blue-400/20 slide-in" style="animation-delay: 0.7s;">
+                    <div class="text-accent text-4xl mb-4">🚀</div>
+                    <h3 class="text-xl font-bold mb-3">Excellence</h3>
+                    <p class="text-gray-300">Striving for technical mastery and professional development through workshops, seminars and competitions.</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-    </main>
-
-    {/* Footer */}
-    <footer class="bg-slate-950 text-slate-500 text-center py-10 mt-24 border-t border-slate-800"> 
-        <div class="container mx-auto px-4">
-            <div class="mb-4">
-                 <a href="#" class="text-2xl font-bold text-slate-300 hover:text-white transition duration-300">
-                    <span class="flex items-center justify-center gap-2">
-                        <i data-lucide="cpu" class="text-cyan-400"></i>
-                        Vidyuth
-                    </span>
-                </a>
+    <!-- Members Section -->
+    <section id="members" class="py-20 bg-gradient-to-b from-black/50 to-blue-900/10 relative overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-6 neon-text">OUR <span class="text-accent">TEAM</span></h2>
+                <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+                    Meet the visionary leaders and faculty mentors driving Vidhyuth forward
+                </p>
             </div>
-            <p>&copy; <span id="year"></span> Vidyuth EEE Association | <span class="font-semibold">[College of Engineering Muttathara]</span> | All Rights Reserved.</p> 
-            <p class="text-sm text-slate-600 mt-2">System Online | Designed with <i data-lucide="binary" class="inline-block h-4 w-4 text-cyan-500"></i> & <i data-lucide="sparkles" class="inline-block h-4 w-4 text-purple-500"></i></p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Faculty In Charge -->
+                <div class="relative member-card bg-black/30 backdrop-blur-sm border border-blue-400/20 rounded-xl overflow-hidden slide-in" style="animation-delay: 0.2s;">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 z-10 pointer-events-none"></div>
+                    <img src="https://i.postimg.cc/ThpMcqsJ/1751254323356.jpg"  alt="Portrait of senior professor in engineering lab wearing formal attire with electrical components in background" class="w-full h-64 object-cover" />
+                    <div class="p-6 relative z-20">
+                        <h3 class="text-xl font-bold mb-1">...........</h3>
+                        <p class="text-accent mb-3">Faculty In Charge</p>
+                        <p class="text-sm text-gray-300">..........</p>
+                    </div>
+                </div>
+
+                <!-- President -->
+                <div class="relative member-card bg-black/30 backdrop-blur-sm border border-blue-400/20 rounded-xl overflow-hidden slide-in" style="animation-delay: 0.4s;">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 z-10 pointer-events-none"></div>
+                    <img src="https://i.postimg.cc/MnpC37PD/5c92d033599a2f0bc873624d0676afa3.jpg" alt="Student leader demonstrating electronic circuit with focused expression in well-equipped lab" class="w-full h-64 object-cover" />
+                    <div class="p-6 relative z-20">
+                        <h3 class="text-xl font-bold mb-1">..............</h3>
+                        <p class="text-accent mb-3">President</p>
+                        <p class="text-sm text-gray-300">........</p>
+                    </div>
+                </div>
+
+                <!-- Treasurer -->
+                <div class="relative member-card bg-black/30 backdrop-blur-sm border border-blue-400/20 rounded-xl overflow-hidden slide-in" style="animation-delay: 0.6s;">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 z-10 pointer-events-none"></div>
+                    <img src="https://i.postimg.cc/ThpMcqsJ/1751254323356.jpg" alt="::::::::::::::" class="w-full h-64 object-cover" />
+                    <div class="p-6 relative z-20">
+                        <h3 class="text-xl font-bold mb-1">..........</h3>
+                        <p class="text-accent mb-3">Treasurer</p>
+                        <p class="text-sm text-gray-300">.......</p>
+                    </div>
+                </div>
+
+                <!-- Editor -->
+                <div class="relative member-card bg-black/30 backdrop-blur-sm border border-blue-400/20 rounded-xl overflow-hidden slide-in" style="animation-delay: 0.8s;">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 z-10 pointer-events-none"></div><img src="https://i.postimg.cc/MnpC37PD/5c92d033599a2f0bc873624d0676afa3.jpg" alt="Creative student reviewing technical publication drafts with dual monitors showing circuit diagrams" class="w-full h-64 object-cover" />
+                    <div class="p-6 relative z-20">
+                        <h3 class="text-xl font-bold mb-1">...........</h3>
+                        <p class="text-accent mb-3">Editor</p>
+                        <p class="text-sm text-gray-300">.............</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <!-- Events Section -->
+    <section id="events" class="py-20 relative overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-6 neon-text">UPCOMING <span class="text-accent">EVENTS</span></h2>
+                <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+                    Explore technical workshops, guest lectures, and competitions lined up this semester
+                </p>
+            </div>
+
+            <div class="grid-stack">
+                <!-- Event 1 -->
+                <div class="bg-black/30 backdrop-blur-sm border border-blue-400/20 rounded-2xl p-8 flex flex-col justify-between card-animation hover:shadow-2xl hover:shadow-blue-400/20">
+                    <div>
+                        <div class="text-accent font-bold text-sm mb-2">OCT 15, 2023</div>
+                        <h3 class="text-xl font-bold mb-3">Power Systems Symposium</h3>
+                        <p class="text-gray-300 mb-4">A deep dive into modern grid technologies with industry experts from major power companies.</p>
+                    </div>
+                    <div>
+                        <span class="inline-block bg-blue-900/50 text-accent text-xs px-3 py-1 rounded-full mr-2">Workshop</span>
+                        <span class="inline-block bg-purple-900/50 text-accent text-xs px-3 py-1 rounded-full">Guest Lecture</span>
+                    </div>
+                </div>
+
+                <!-- Event 2 -->
+                <div class="bg-black/30 backdrop-blur-sm border border-blue-400/20 rounded-2xl p-8 flex flex-col justify-between card-animation hover:shadow-2xl hover:shadow-blue-400/20">
+                    <div>
+                        <div class="text-accent font-bold text-sm mb-2">NOV 2-4, 2023</div>
+                        <h3 class="text-xl font-bold mb-3">IoT Hackathon</h3>
+                        <p class="text-gray-300 mb-4">48 hour challenge to build innovative IoT solutions for smart cities and industrial automation.</p>
+                    </div>
+                    <div>
+                        <span class="inline-block bg-green-900/50 text-accent text-xs px-3 py-1 rounded-full mr-2">Competition</span>
+                        <span class="inline-block bg-yellow-900/50 text-accent text-xs px-3 py-1 rounded-full">Team Event</span>
+                    </div>
+                </div>
+
+                <!-- Event 3 -->
+                <div class="bg-black/30 backdrop-blur-sm border border-blue-400/20 rounded-2xl p-8 flex flex-col justify-between card-animation hover:shadow-2xl hover:shadow-blue-400/20">
+                    <div>
+                        <div class="text-accent font-bold text-sm mb-2">DEC 10, 2023</div>
+                        <h3 class="text-xl font-bold mb-3">PCB Design Masterclass</h3>
+                        <p class="text-gray-300 mb-4">Hands-on training with Altium Designer for advanced PCB layout and high-speed design techniques.</p>
+                    </div>
+                    <div>
+                        <span class="inline-block bg-red-900/50 text-accent text-xs px-3 py-1 rounded-full mr-2">Workshop</span>
+                        <span class="inline-block bg-indigo-900/50 text-accent text-xs px-3 py-1 rounded-full">Limited Seats</span>
+                    </div>
+                </div>
+
+                <!-- Event 4 -->
+                <div class="bg-black/30 backdrop-blur-sm border border-blue-400/20 rounded-2xl p-8 flex flex-col justify-between card-animation hover:shadow-2xl hover:shadow-blue-400/20">
+                    <div>
+                        <div class="text-accent font-bold text-sm mb-2">JAN 20, 2024</div>
+                        <h3 class="text-xl font-bold mb-3">Renewable Energy Forum</h3>
+                        <p class="text-gray-300 mb-4">Panel discussion on integrating renewables with grid-scale storage solutions and microgrids.</p>
+                    </div>
+                    <div>
+                        <span class="inline-block bg-teal-900/50 text-accent text-xs px-3 py-1 rounded-full mr-2">Panel Discussion</span>
+                        <span class="inline-block bg-pink-900/50 text-accent text-xs px-3 py-1 rounded-full">Industry Experts</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gradient-to-b from-black/30 to-blue-900/30 relative overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-6 neon-text">GET IN <span class="text-accent">TOUCH</span></h2>
+                    <p class="text-lg text-gray-300">
+                        Reach out for collaborations, queries, or to learn more about our activities
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <!-- Contact Form -->
+                    <div class="bg-black/30 backdrop-blur-sm border border-blue-400/20 rounded-2xl p-8 hover:shadow-xl hover:shadow-blue-400/10 transition-all duration-300">
+                        <h3 class="text-xl font-bold mb-6 text-accent">Send Us a Message</h3>
+                        <form>
+                            <div class="mb-4">
+                                <label class="block text-gray-300 text-sm mb-2" for="name">Name</label>
+                                <input class="w-full bg-black/50 border border-blue-400/20 rounded-lg py-2 px-4 text-gray-200 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300" id="name" type="text" placeholder="Your name" />
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-300 text-sm mb-2" for="email">Email</label>
+                                <input class="w-full bg-black/50 border border-blue-400/20 rounded-lg py-2 px-4 text-gray-200 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300" id="email" type="email" placeholder="your@email.com" />
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-300 text-sm mb-2" for="message">Message</label>
+                                <textarea class="w-full bg-black/50 border border-blue-400/20 rounded-lg py-2 px-4 text-gray-200 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300" id="message" rows="4" placeholder="Your message"></textarea>
+                            </div>
+                            <button class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-blue-400/20 flex items-center justify-center" type="button">
+                                <span class="mr-2">Send Message</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div class="grid gap-8 content-start">
+                        <div class="bg-black/30 backdrop-blur-sm border border-blue-400/20 rounded-2xl p-8 hover:shadow-xl hover:shadow-blue-400/10 transition-all duration-300">
+                            <h3 class="text-xl font-bold mb-4 text-accent">Contact Information</h3>
+                            <ul class="space-y-4">
+                                <li class="flex items-start">
+                                    <div class="text-accent mr-4 mt-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold">Address</h4>
+                                        <p class="text-gray-300">Electrical Engineering Department<br/>College Campus, City</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="text-accent mr-4 mt-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold">Phone</h4>
+                                        <p class="text-gray-300">+91 98765 43210</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="text-accent mr-4 mt-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold">Email</h4>
+                                        <p class="text-gray-300">contact@vidhyuthee.org</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-black/30 backdrop-blur-sm border border-blue-400/20 rounded-2xl p-8 hover:shadow-xl hover:shadow-blue-400/10 transition-all duration-300">
+                            <h3 class="text-xl font-bold mb-4 text-accent">Social Media</h3>
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-10 h-10 rounded-full bg-blue-600 hover:bg-blue-500 flex items-center justify-center transition-all duration-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                                    </svg>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-pink-600 hover:bg-pink-500 flex items-center justify-center transition-all duration-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                    </svg>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-blue-400 hover:bg-blue-300 flex items-center justify-center transition-all duration-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                                    </svg>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-red-600 hover:bg-red-500 flex items-center justify-center transition-all duration-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black/80 border-t border-blue-400/20 py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h2 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-400">VIDYUTH</h2>
+                    <p class="text-gray-400 mt-2">Electrifying Innovation Since 2010</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-accent transition-colors duration-300">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-accent transition-colors duration-300">Terms of Service</a>
+                    <a href="#" class="text-gray-400 hover:text-accent transition-colors duration-300">Sitemap</a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
+                © 2023 Vidhyuth EEE Association. All rights reserved.
+            </div>
         </div>
     </footer>
 
+    <!-- Particle.js Script -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
-
-        // Set current year in footer
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        // Navbar scroll effect
-        const navbar = document.getElementById('navbar');
-        const navHeight = navbar.offsetHeight; // Get navbar height
-        window.onscroll = () => {
-            if (window.scrollY > navHeight / 2) { // Add class earlier
-                navbar.classList.add('nav-scrolled');
-            } else {
-                navbar.classList.remove('nav-scrolled');
-            }
-        };
-
-         // Mobile Menu Toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-
-        if (mobileMenuButton && mobileMenu && mobileMenuCloseButton) {
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.add('active');
+        // Initialize particles.js
+        document.addEventListener('DOMContentLoaded', function() {
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": {
+                        "value": 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#59c3c3"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 5
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.3,
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 40,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#4062bb",
+                        "opacity": 0.2,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 2,
+                        "direction": "none",
+                        "random": true,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "grab"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 140,
+                            "line_linked": {
+                                "opacity": 0.5
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
             });
 
-            mobileMenuCloseButton.addEventListener('click', () => {
-                mobileMenu.classList.remove('active');
-            });
-
-            mobileMenuLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.remove('active');
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
                 });
             });
-        }
-
+        });
     </script>
-
 </body>
 </html>
+
